@@ -12,3 +12,16 @@ export interface NewsState {
   allNews: News[];
   isLoaded: boolean;
 }
+
+export interface SaveNewsDTO {
+  title: string;
+  description: string;
+  content: string;
+  date: Date;
+  author: string;
+}
+
+export interface NewsModalProps {
+  open: boolean;
+  handleClose: () => void;
+}

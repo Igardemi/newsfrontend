@@ -4,7 +4,7 @@ import { deleteNews, loadNews } from "../store/newsSlice";
 import { NewsCard } from "../components/NewsCard";
 import { useEffect } from "react";
 import { selectorArchivedNews } from "../store/selectors";
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 
 const ArchivedNewsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -20,8 +20,12 @@ const ArchivedNewsPage = () => {
   return (
     <Box>
       <Typography variant="h1">Archivadas</Typography>
-      <Box style={{ marginBottom: 20 }}>
-        <hr />
+      <Box>
+        <Divider
+          sx={{
+            mb: 3,
+          }}
+        />
       </Box>
       {archivedNews.map((news) => (
         <NewsCard

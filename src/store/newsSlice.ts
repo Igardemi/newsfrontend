@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import type { NewsState } from "../models/News/newsTypes";
-import { fetchNews, archiveNewsAPI, deleteNewsAPI } from "../api/newsService";
+import type { NewsState, SaveNewsDTO } from "../models/News/newsTypes";
+import { fetchNews, archiveNewsAPI, deleteNewsAPI, saveNewsAPI } from "../api/newsService";
 
 const initialState: NewsState = {
   allNews: [],
@@ -9,6 +9,11 @@ const initialState: NewsState = {
 
 export const loadNews = createAsyncThunk("news/loadNews", async () => {
   return await fetchNews();
+});
+
+export const saveNews = createAsyncThunk("news/saveNews", async (formNews: SaveNewsDTO) => {
+  console.log("Creo nueva noticia.");
+  return await saveNewsAPI(formNews);
 });
 
 export const archiveNews = createAsyncThunk("news/archiveNews", async (id: string) => {
@@ -30,8 +35,11 @@ const newsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loadNews.fulfilled, (state, action) => {
-        state.allNews = action.payload.data;
+        state.allNews = action.payload;
         state.isLoaded = true;
+      })
+      .addCase(saveNews.fulfilled, (state, action) => {
+        state.allNews.unshift(action.payload);
       })
       .addCase(archiveNews.fulfilled, (state, action) => {
         const news = state.allNews.find((n) => n._id === action.payload);
