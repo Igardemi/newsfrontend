@@ -15,7 +15,6 @@ export const NewsModal = ({ open, handleClose }: NewsCardProps) => {
     title: "",
     description: "",
     content: "",
-    date: new Date(),
     author: "",
   });
 
@@ -34,7 +33,6 @@ export const NewsModal = ({ open, handleClose }: NewsCardProps) => {
       title: "",
       description: "",
       content: "",
-      date: new Date(),
       author: "",
     });
   };

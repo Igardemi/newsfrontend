@@ -13,7 +13,8 @@ export const loadNews = createAsyncThunk("news/loadNews", async () => {
 
 export const saveNews = createAsyncThunk("news/saveNews", async (formNews: SaveNewsDTO) => {
   console.log("Creo nueva noticia.");
-  return await saveNewsAPI(formNews);
+  const news = await saveNewsAPI(formNews);
+  return news;
 });
 
 export const archiveNews = createAsyncThunk("news/archiveNews", async (id: string) => {
@@ -39,7 +40,7 @@ const newsSlice = createSlice({
         state.isLoaded = true;
       })
       .addCase(saveNews.fulfilled, (state, action) => {
-        state.allNews.unshift(action.payload);
+        state.allNews = [action.payload, ...state.allNews];
       })
       .addCase(archiveNews.fulfilled, (state, action) => {
         const news = state.allNews.find((n) => n._id === action.payload);

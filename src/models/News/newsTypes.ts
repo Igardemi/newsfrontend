@@ -17,7 +17,6 @@ export interface SaveNewsDTO {
   title: string;
   description: string;
   content: string;
-  date: Date;
   author: string;
 }
 
