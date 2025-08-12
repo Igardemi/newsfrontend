@@ -1,9 +1,10 @@
 import axios from "axios";
 import type { News, SaveNewsDTO } from "../models/News/newsTypes";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const fetchNews = async (): Promise<News[]> => {
+  console.log(API_URL);
   const response = await axios.get(`${API_URL}/news`);
   return response.data.data;
 };
